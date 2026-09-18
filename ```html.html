@@ -1,0 +1,752 @@
+```html
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA SHOP — Интернет-дүкен</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f7f7f5;
+            color: #171717;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1250px;
+            margin: auto;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #7d5a45;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #000;
+        }
+
+        .cart {
+            background: #171717;
+            color: #fff;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+        }
+
+        .hero {
+            max-width: 1250px;
+            margin: 35px auto;
+            padding: 70px 60px;
+            border-radius: 30px;
+            background: linear-gradient(120deg, #1c1c1c, #4c4038);
+            color: #fff;
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 5vw, 68px);
+            line-height: 1.02;
+            letter-spacing: -3px;
+            margin-bottom: 22px;
+        }
+
+        .hero p {
+            color: #d5d5d5;
+            max-width: 550px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 23px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+        }
+
+        .btn-light {
+            background: #fff;
+            color: #171717;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 1px solid #777;
+        }
+
+        .hero-card {
+            background: rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.15);
+            border-radius: 24px;
+            padding: 35px;
+        }
+
+        .hero-card .sale {
+            font-size: 58px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .hero-card p {
+            margin: 0;
+        }
+
+        .section {
+            max-width: 1250px;
+            margin: 90px auto;
+            padding: 0 20px;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 30px;
+        }
+
+        .section-head h2 {
+            font-size: 34px;
+            letter-spacing: -1px;
+        }
+
+        .section-head p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .category {
+            min-height: 180px;
+            border-radius: 22px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            background: #e8ded5;
+            transition: .3s;
+        }
+
+        .category:nth-child(2) {
+            background: #d9e0e4;
+        }
+
+        .category:nth-child(3) {
+            background: #ddd9e8;
+        }
+
+        .category:nth-child(4) {
+            background: #e6e2cf;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+        }
+
+        .category h3 {
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .category span {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .product {
+            background: #fff;
+            border-radius: 20px;
+            padding: 12px;
+            border: 1px solid #ededed;
+            transition: .3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,.08);
+        }
+
+        .product-image {
+            height: 230px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0eeeb;
+            font-size: 45px;
+            font-weight: 800;
+            color: #999;
+        }
+
+        .product-info {
+            padding: 17px 8px 8px;
+        }
+
+        .product-info small {
+            color: #999;
+        }
+
+        .product-info h3 {
+            margin: 7px 0;
+            font-size: 16px;
+        }
+
+        .price {
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .old-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 13px;
+            margin-left: 7px;
+        }
+
+        .product button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            border: none;
+            background: #171717;
+            color: #fff;
+            border-radius: 10px;
+        }
+
+        .promo {
+            background: #d8c4b5;
+            border-radius: 28px;
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .promo h2 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .promo p {
+            color: #62584f;
+        }
+
+        .promo button {
+            background: #171717;
+            color: #fff;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            background: #fff;
+            padding: 28px;
+            border-radius: 20px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .feature-number {
+            font-size: 13px;
+            color: #9a765c;
+            font-weight: 700;
+            margin-bottom: 35px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #777;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .newsletter {
+            background: #171717;
+            color: #fff;
+            border-radius: 28px;
+            padding: 55px;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .newsletter p {
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+
+        .newsletter form {
+            max-width: 550px;
+            margin: auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .newsletter input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        .newsletter button {
+            padding: 15px 22px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        footer {
+            margin-top: 90px;
+            background: #fff;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .footer-inner {
+            max-width: 1250px;
+            margin: auto;
+            padding: 55px 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        footer h3 {
+            margin-bottom: 18px;
+        }
+
+        footer p,
+        footer a {
+            color: #777;
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .copyright {
+            border-top: 1px solid #eee;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+        }
+
+        @media(max-width: 900px) {
+            nav {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 40px 25px;
+            }
+
+            .categories,
+            .products,
+            .features {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .footer-inner {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+
+        @media(max-width: 550px) {
+            .categories,
+            .products,
+            .features,
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .promo,
+            .newsletter {
+                padding: 30px 20px;
+            }
+
+            .newsletter form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+        <a href="#" class="logo">NOVA<span>.</span></a>
+
+        <nav>
+            <a href="#home">Басты бет</a>
+            <a href="#categories">Санаттар</a>
+            <a href="#products">Тауарлар</a>
+            <a href="#sale">Жеңілдіктер</a>
+            <a href="#contact">Байланыс</a>
+        </nav>
+
+        <button class="cart">Себет (<span id="cartCount">0</span>)</button>
+    </div>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+    <div>
+        <h1>Күнделікті таңдауыңа арналған дүкен</h1>
+        <p>
+            NOVA — заманауи тауарлар, ыңғайлы сатып алу және сапалы қызмет
+            біріктірілген жаңа интернет-дүкен.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#products" class="btn btn-light">Каталогты көру</a>
+            <a href="#categories" class="btn btn-outline">Санаттар</a>
+        </div>
+    </div>
+
+    <div class="hero-card">
+        <div class="sale">−30%</div>
+        <p>Таңдалған тауарларға арналған арнайы ұсыныстар. Акция шектеулі уақытқа ғана жарамды.</p>
+    </div>
+</section>
+
+<section class="section" id="categories">
+    <div class="section-head">
+        <div>
+            <h2>Санаттар</h2>
+            <p>Өзіңізге қажетті бөлімді таңдаңыз</p>
+        </div>
+    </div>
+
+    <div class="categories">
+        <div class="category">
+            <h3>Киім</h3>
+            <span>120 тауар</span>
+        </div>
+
+        <div class="category">
+            <h3>Электроника</h3>
+            <span>86 тауар</span>
+        </div>
+
+        <div class="category">
+            <h3>Аксессуарлар</h3>
+            <span>74 тауар</span>
+        </div>
+
+        <div class="category">
+            <h3>Үйге арналған</h3>
+            <span>95 тауар</span>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="products">
+    <div class="section-head">
+        <div>
+            <h2>Танымал тауарлар</h2>
+            <p>Клиенттер жиі таңдайтын өнімдер</p>
+        </div>
+    </div>
+
+    <div class="products">
+
+        <div class="product">
+            <div class="product-image">01</div>
+            <div class="product-info">
+                <small>TECH</small>
+                <h3>Wireless Headphones</h3>
+                <span class="price">29 900 ₸</span>
+                <span class="old-price">39 900 ₸</span>
+                <button onclick="addToCart(this)">Себетке қосу</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-image">02</div>
+            <div class="product-info">
+                <small>STYLE</small>
+                <h3>Classic Jacket</h3>
+                <span class="price">42 500 ₸</span>
+                <span class="old-price">55 000 ₸</span>
+                <button onclick="addToCart(this)">Себетке қосу</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-image">03</div>
+            <div class="product-info">
+                <small>HOME</small>
+                <h3>Minimal Lamp</h3>
+                <span class="price">18 900 ₸</span>
+                <span class="old-price">23 900 ₸</span>
+                <button onclick="addToCart(this)">Себетке қосу</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-image">04</div>
+            <div class="product-info">
+                <small>ACCESSORY</small>
+                <h3>Leather Bag</h3>
+                <span class="price">34 900 ₸</span>
+                <span class="old-price">42 900 ₸</span>
+                <button onclick="addToCart(this)">Себетке қосу</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-image">05</div>
+            <div class="product-info">
+                <small>TECH</small>
+                <h3>Smart Watch</h3>
+                <span class="price">54 900 ₸</span>
+                <button onclick="addToCart(this)">Себетке қосу</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-image">06</div>
+            <div class="product-info">
+                <small>STYLE</small>
+                <h3>Basic Sneakers</h3>
+                <span class="price">31 900 ₸</span>
+                <button onclick="addToCart(this)">Себетке қосу</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-image">07</div>
+            <div class="product-info">
+                <small>HOME</small>
+                <h3>Modern Chair</h3>
+                <span class="price">64 900 ₸</span>
+                <button onclick="addToCart(this)">Себетке қосу</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-image">08</div>
+            <div class="product-info">
+                <small>ACCESSORY</small>
+                <h3>Classic Wallet</h3>
+                <span class="price">15 900 ₸</span>
+                <button onclick="addToCart(this)">Себетке қосу</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section" id="sale">
+    <div class="promo">
+        <div>
+            <h2>Маусымдық жеңілдіктер</h2>
+            <p>Таңдалған тауарларға 30%-ға дейін жеңілдік.</p>
+        </div>
+
+        <button onclick="document.getElementById('products').scrollIntoView()">
+            Тауарларды көру
+        </button>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <div>
+            <h2>Неге NOVA?</h2>
+            <p>Сатып алуды ыңғайлы ету үшін жасалған</p>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <div class="feature-number">01</div>
+            <h3>Жылдам жеткізу</h3>
+            <p>Тапсырысыңызды қысқа мерзімде көрсетілген мекенжайға жеткіземіз.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-number">02</div>
+            <h3>Сапалы тауар</h3>
+            <p>Каталогтағы өнімдер сапа талаптарына сәйкес таңдалады.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-number">03</div>
+            <h3>Қауіпсіз төлем</h3>
+            <p>Төлем жасау процесі қарапайым және ыңғайлы ұйымдастырылған.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-number">04</div>
+            <h3>Қолдау қызметі</h3>
+            <p>Сұрақтарыңыз бойынша біздің мамандар көмектесуге дайын.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="newsletter">
+        <h2>Жаңалықтарға жазылыңыз</h2>
+        <p>Жаңа тауарлар мен арнайы ұсыныстар туралы бірінші болып біліңіз.</p>
+
+        <form onsubmit="subscribe(event)">
+            <input type="email" placeholder="Email мекенжайы" required>
+            <button type="submit">Жазылу</button>
+        </form>
+    </div>
+</section>
+
+</main>
+
+<footer id="contact">
+    <div class="footer-inner">
+
+        <div>
+            <h3>NOVA.</h3>
+            <p>
+                Заманауи интернет-дүкен. Сапалы тауарлар,
+                ыңғайлы каталог және жылдам қызмет.
+            </p>
+        </div>
+
+        <div>
+            <h3>Дүкен</h3>
+            <a href="#products">Барлық тауарлар</a><br>
+            <a href="#categories">Санаттар</a><br>
+            <a href="#sale">Жеңілдіктер</a>
+        </div>
+
+        <div>
+            <h3>Клиенттерге</h3>
+            <a href="#">Жеткізу</a><br>
+            <a href="#">Төлем</a><br>
+            <a href="#">Қайтару</a>
+        </div>
+
+        <div>
+            <h3>Байланыс</h3>
+            <p>Алматы, Қазақстан</p>
+            <p>+7 700 000 00 00</p>
+            <p>info@nova.kz</p>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 NOVA. Барлық құқықтар қорғалған.
+    </div>
+</footer>
+
+<script>
+    let cartCount = 0;
+
+    function addToCart(button) {
+        cartCount++;
+        document.getElementById("cartCount").textContent = cartCount;
+
+        const oldText = button.textContent;
+        button.textContent = "Қосылды";
+        button.style.background = "#7d5a45";
+
+        setTimeout(() => {
+            button.textContent = oldText;
+            button.style.background = "#171717";
+        }, 1200);
+    }
+
+    function subscribe(event) {
+        event.preventDefault();
+        alert("Сіз жаңалықтарға сәтті жазылдыңыз.");
+    }
+</script>
+
+</body>
+</html>
+```
