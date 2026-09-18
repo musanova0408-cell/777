@@ -1,0 +1,635 @@
+```html
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SLICE — Пиццаға тапсырыс беру</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #fffaf7;
+            color: #211b18;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,250,247,.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #eee2dc;
+        }
+
+        .header {
+            max-width: 1200px;
+            margin: auto;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #d75b42;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+            color: #685e58;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #d75b42;
+        }
+
+        .cart {
+            border: none;
+            background: #211b18;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 70px 55px;
+            border-radius: 30px;
+            background: #f2ded4;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-label {
+            color: #c34e37;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px,5vw,65px);
+            line-height: 1;
+            letter-spacing: -3px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: #695d56;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .main-btn {
+            display: inline-block;
+            padding: 15px 24px;
+            border-radius: 12px;
+            background: #d75b42;
+            color: white;
+            font-weight: 700;
+        }
+
+        .pizza-visual {
+            height: 330px;
+            border-radius: 25px;
+            background: #e4b59e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 90px auto;
+            padding: 0 20px;
+        }
+
+        .title {
+            margin-bottom: 30px;
+        }
+
+        .title h2 {
+            font-size: 35px;
+            letter-spacing: -1px;
+        }
+
+        .title p {
+            color: #81756e;
+            margin-top: 8px;
+        }
+
+        .categories {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .category {
+            padding: 13px 22px;
+            background: #fff;
+            border: 1px solid #eaded8;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .category.active,
+        .category:hover {
+            background: #d75b42;
+            color: #fff;
+            border-color: #d75b42;
+        }
+
+        .pizzas {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 22px;
+        }
+
+        .pizza-card {
+            background: #fff;
+            border: 1px solid #eee2dc;
+            border-radius: 22px;
+            overflow: hidden;
+            transition: .3s;
+        }
+
+        .pizza-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(100,60,40,.08);
+        }
+
+        .pizza-img {
+            height: 230px;
+            background: #f1dfd5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            color: #c75a42;
+        }
+
+        .pizza-info {
+            padding: 22px;
+        }
+
+        .pizza-info h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .pizza-info p {
+            color: #81756e;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 45px;
+        }
+
+        .pizza-bottom {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .add {
+            border: none;
+            background: #211b18;
+            color: #fff;
+            padding: 11px 15px;
+            border-radius: 10px;
+        }
+
+        .order {
+            background: #211b18;
+            color: #fff;
+            border-radius: 28px;
+            padding: 55px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .order h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .order p {
+            color: #b9ada7;
+            line-height: 1.7;
+        }
+
+        .order-form {
+            display: grid;
+            gap: 12px;
+        }
+
+        .order-form input,
+        .order-form select {
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-family: inherit;
+        }
+
+        .order-form button {
+            padding: 15px;
+            border: none;
+            background: #d75b42;
+            color: white;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+        }
+
+        .advantage {
+            padding: 28px;
+            background: #fff;
+            border: 1px solid #eee2dc;
+            border-radius: 20px;
+        }
+
+        .number {
+            color: #d75b42;
+            font-weight: 800;
+            margin-bottom: 35px;
+        }
+
+        .advantage h3 {
+            margin-bottom: 10px;
+        }
+
+        .advantage p {
+            color: #81756e;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        footer {
+            background: #f1e6e0;
+            padding: 55px 20px 25px;
+        }
+
+        .footer {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 35px;
+        }
+
+        footer h3 {
+            margin-bottom: 16px;
+        }
+
+        footer p,
+        footer a {
+            color: #776a63;
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .copyright {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid #ddcec6;
+            text-align: center;
+            color: #887a72;
+            font-size: 13px;
+        }
+
+        @media(max-width: 800px) {
+            nav {
+                display: none;
+            }
+
+            .hero,
+            .order {
+                grid-template-columns: 1fr;
+                padding: 35px 25px;
+            }
+
+            .pizzas {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .advantages,
+            .footer {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .pizzas,
+            .advantages,
+            .footer {
+                grid-template-columns: 1fr;
+            }
+
+            .pizza-visual {
+                height: 230px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header">
+        <a href="#" class="logo">SLICE<span>.</span></a>
+
+        <nav>
+            <a href="#menu">Мәзір</a>
+            <a href="#categories">Санаттар</a>
+            <a href="#order">Тапсырыс</a>
+            <a href="#about">Біз туралы</a>
+        </nav>
+
+        <button class="cart">
+            Себет (<span id="cart">0</span>)
+        </button>
+    </div>
+</header>
+
+<section class="hero">
+    <div>
+        <div class="hero-label">Жаңа мәзір</div>
+        <h1>Ыстық пицца. Жылдам жеткізу.</h1>
+        <p>
+            Қаладағы сүйікті пиццаларыңызды бірнеше батырма арқылы
+            таңдап, үйіңізге немесе кеңсеңізге тапсырыс беріңіз.
+        </p>
+
+        <a href="#menu" class="main-btn">Мәзірді көру</a>
+    </div>
+
+    <div class="pizza-visual">PIZZA</div>
+</section>
+
+<section class="section" id="categories">
+    <div class="title">
+        <h2>Санаттар</h2>
+        <p>Өзіңізге ұнайтын пиццаны таңдаңыз</p>
+    </div>
+
+    <div class="categories">
+        <div class="category active">Барлығы</div>
+        <div class="category">Классикалық</div>
+        <div class="category">Етті</div>
+        <div class="category">Тауық етімен</div>
+        <div class="category">Вегетариандық</div>
+    </div>
+</section>
+
+<section class="section" id="menu">
+    <div class="title">
+        <h2>Біздің мәзір</h2>
+        <p>Жаңа дайындалған пиццалар</p>
+    </div>
+
+    <div class="pizzas">
+
+        <div class="pizza-card">
+            <div class="pizza-img">P</div>
+            <div class="pizza-info">
+                <h3>Маргарита</h3>
+                <p>Томат соусы, моцарелла, базилик.</p>
+                <div class="pizza-bottom">
+                    <span class="price">3 490 ₸</span>
+                    <button class="add" onclick="addPizza(this)">Қосу</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pizza-card">
+            <div class="pizza-img">P</div>
+            <div class="pizza-info">
+                <h3>Пепперони</h3>
+                <p>Пепперони, моцарелла және арнайы соус.</p>
+                <div class="pizza-bottom">
+                    <span class="price">4 290 ₸</span>
+                    <button class="add" onclick="addPizza(this)">Қосу</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pizza-card">
+            <div class="pizza-img">P</div>
+            <div class="pizza-info">
+                <h3>Чикен</h3>
+                <p>Тауық еті, ірімшік, саңырауқұлақ және соус.</p>
+                <div class="pizza-bottom">
+                    <span class="price">4 590 ₸</span>
+                    <button class="add" onclick="addPizza(this)">Қосу</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pizza-card">
+            <div class="pizza-img">P</div>
+            <div class="pizza-info">
+                <h3>Мясная</h3>
+                <p>Сиыр еті, пепперони, ветчина және моцарелла.</p>
+                <div class="pizza-bottom">
+                    <span class="price">5 290 ₸</span>
+                    <button class="add" onclick="addPizza(this)">Қосу</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pizza-card">
+            <div class="pizza-img">P</div>
+            <div class="pizza-info">
+                <h3>4 Сыра</h3>
+                <p>Моцарелла, чеддер, пармезан және дорблю.</p>
+                <div class="pizza-bottom">
+                    <span class="price">4 790 ₸</span>
+                    <button class="add" onclick="addPizza(this)">Қосу</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pizza-card">
+            <div class="pizza-img">P</div>
+            <div class="pizza-info">
+                <h3>Овощная</h3>
+                <p>Қызанақ, бұрыш, саңырауқұлақ, жүгері.</p>
+                <div class="pizza-bottom">
+                    <span class="price">3 990 ₸</span>
+                    <button class="add" onclick="addPizza(this)">Қосу</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section" id="order">
+    <div class="order">
+        <div>
+            <h2>Тапсырыс беру</h2>
+            <p>
+                Аты-жөніңізді, телефон нөміріңізді және мекенжайыңызды
+                енгізіңіз. Менеджер тапсырысты растау үшін сізбен байланысады.
+            </p>
+        </div>
+
+        <form class="order-form" onsubmit="makeOrder(event)">
+            <input type="text" placeholder="Аты-жөніңіз" required>
+            <input type="tel" placeholder="Телефон нөмірі" required>
+            <input type="text" placeholder="Жеткізу мекенжайы" required>
+
+            <select required>
+                <option value="">Пиццаны таңдаңыз</option>
+                <option>Маргарита</option>
+                <option>Пепперони</option>
+                <option>Чикен</option>
+                <option>Мясная</option>
+                <option>4 Сыра</option>
+                <option>Овощная</option>
+            </select>
+
+            <button type="submit">Тапсырысты жіберу</button>
+        </form>
+    </div>
+</section>
+
+<section class="section" id="about">
+    <div class="title">
+        <h2>Біздің артықшылықтарымыз</h2>
+    </div>
+
+    <div class="advantages">
+        <div class="advantage">
+            <div class="number">01</div>
+            <h3>Жаңа өнімдер</h3>
+            <p>Барлық пицца тапсырыс қабылданғаннан кейін дайындалады.</p>
+        </div>
+
+        <div class="advantage">
+            <div class="number">02</div>
+            <h3>Жылдам жеткізу</h3>
+            <p>Тапсырысты қала бойынша жылдам жеткізуге тырысамыз.</p>
+        </div>
+
+        <div class="advantage">
+            <div class="number">03</div>
+            <h3>Ыңғайлы тапсырыс</h3>
+            <p>Онлайн мәзір арқылы қажетті пиццаны оңай таңдай аласыз.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer">
+
+        <div>
+            <h3>SLICE.</h3>
+            <p>Жаңа дайындалған пицца және жылдам жеткізу қызметі.</p>
+        </div>
+
+        <div>
+            <h3>Мәзір</h3>
+            <a href="#menu">Пиццалар</a><br>
+            <a href="#categories">Санаттар</a><br>
+            <a href="#order">Тапсырыс</a>
+        </div>
+
+        <div>
+            <h3>Ақпарат</h3>
+            <a href="#">Жеткізу</a><br>
+            <a href="#">Төлем</a><br>
+            <a href="#">Байланыс</a>
+        </div>
+
+        <div>
+            <h3>Байланыс</h3>
+            <p>Алматы, Қазақстан</p>
+            <p>+7 700 111 22 33</p>
+            <p>info@slice.kz</p>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 SLICE. Барлық құқықтар қорғалған.
+    </div>
+</footer>
+
+<script>
+    let count = 0;
+
+    function addPizza(button) {
+        count++;
+        document.getElementById("cart").textContent = count;
+
+        button.textContent = "Қосылды";
+
+        setTimeout(() => {
+            button.textContent = "Қосу";
+        }, 1000);
+    }
+
+    function makeOrder(event) {
+        event.preventDefault();
+        alert("Тапсырысыңыз қабылданды. Менеджер сізбен жақын уақытта байланысады.");
+    }
+</script>
+
+</body>
+</html>
+```

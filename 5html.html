@@ -1,0 +1,597 @@
+```html
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HAVEN — Қонақүй брондау</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f5f6f4;
+            color: #1d2521;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        header {
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e4e7e3;
+        }
+
+        .header {
+            max-width: 1250px;
+            margin: auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #55776a;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+            color: #65706b;
+            font-size: 14px;
+        }
+
+        .book-btn {
+            background: #26352f;
+            color: #fff;
+            padding: 13px 20px;
+            border-radius: 10px;
+        }
+
+        .hero {
+            max-width: 1250px;
+            margin: 30px auto;
+            min-height: 570px;
+            border-radius: 30px;
+            padding: 65px;
+            display: flex;
+            align-items: end;
+            background: linear-gradient(135deg,#35483f,#8ba096);
+            color: #fff;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero small {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #dce5e1;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px,6vw,76px);
+            line-height: .98;
+            letter-spacing: -4px;
+            margin: 20px 0;
+        }
+
+        .hero p {
+            color: #dce4e0;
+            line-height: 1.7;
+            max-width: 580px;
+            margin-bottom: 28px;
+        }
+
+        .hero a {
+            display: inline-block;
+            background: #fff;
+            color: #26352f;
+            padding: 15px 23px;
+            border-radius: 11px;
+            font-weight: 700;
+        }
+
+        .section {
+            max-width: 1250px;
+            margin: 90px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            letter-spacing: -1px;
+        }
+
+        .section-title p {
+            margin-top: 8px;
+            color: #77817c;
+        }
+
+        .rooms {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 22px;
+        }
+
+        .room {
+            background: #fff;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid #e3e7e4;
+        }
+
+        .room-image {
+            height: 250px;
+            background: #cbd5d0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            color: #65746d;
+            font-weight: 800;
+        }
+
+        .room-info {
+            padding: 24px;
+        }
+
+        .room-info h3 {
+            font-size: 21px;
+            margin-bottom: 9px;
+        }
+
+        .room-info p {
+            color: #77817c;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 45px;
+        }
+
+        .room-bottom {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-weight: 800;
+            font-size: 19px;
+        }
+
+        .price small {
+            color: #888;
+            font-weight: 400;
+        }
+
+        .room-bottom button {
+            background: #26352f;
+            color: #fff;
+            border: none;
+            padding: 11px 16px;
+            border-radius: 9px;
+        }
+
+        .booking {
+            background: #fff;
+            border: 1px solid #e0e5e1;
+            border-radius: 25px;
+            padding: 40px;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 14px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            color: #77817c;
+            margin-bottom: 7px;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #dce1de;
+            border-radius: 10px;
+            font-family: inherit;
+        }
+
+        .booking button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 15px;
+            border: none;
+            background: #55776a;
+            color: #fff;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 20px;
+        }
+
+        .service {
+            padding: 27px;
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid #e1e6e2;
+        }
+
+        .service-number {
+            color: #55776a;
+            font-weight: 800;
+            margin-bottom: 40px;
+        }
+
+        .service h3 {
+            margin-bottom: 10px;
+        }
+
+        .service p {
+            color: #77817c;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .info-banner {
+            background: #26352f;
+            color: #fff;
+            border-radius: 25px;
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .info-banner h2 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .info-banner p {
+            color: #b9c4bf;
+        }
+
+        footer {
+            margin-top: 90px;
+            background: #fff;
+            border-top: 1px solid #e2e6e3;
+        }
+
+        .footer {
+            max-width: 1250px;
+            margin: auto;
+            padding: 55px 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 35px;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+        footer p,
+        footer a {
+            color: #78817d;
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .copyright {
+            border-top: 1px solid #eee;
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 13px;
+        }
+
+        @media(max-width:900px) {
+            nav {
+                display: none;
+            }
+
+            .hero {
+                margin: 15px;
+                padding: 40px 25px;
+            }
+
+            .rooms,
+            .services {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .booking-grid {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .footer {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+
+        @media(max-width:550px) {
+            .rooms,
+            .services,
+            .booking-grid,
+            .footer {
+                grid-template-columns: 1fr;
+            }
+
+            .booking,
+            .info-banner {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header">
+        <a href="#" class="logo">HAVEN<span>.</span></a>
+
+        <nav>
+            <a href="#rooms">Бөлмелер</a>
+            <a href="#booking">Брондау</a>
+            <a href="#services">Қызметтер</a>
+            <a href="#contact">Байланыс</a>
+        </nav>
+
+        <a href="#booking" class="book-btn">Брондау</a>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <small>Haven Hotel Almaty</small>
+
+        <h1>Сапалы демалыс үшін жайлы кеңістік.</h1>
+
+        <p>
+            Заманауи бөлмелер, тыныш атмосфера және қала орталығына
+            жақын орналасқан қонақүй. Бөлмеңізді онлайн таңдаңыз.
+        </p>
+
+        <a href="#booking">Бөлмені брондау</a>
+    </div>
+</section>
+
+<section class="section" id="rooms">
+    <div class="section-title">
+        <h2>Бөлмелер</h2>
+        <p>Өзіңізге сәйкес бөлмені таңдаңыз</p>
+    </div>
+
+    <div class="rooms">
+
+        <div class="room">
+            <div class="room-image">ROOM 01</div>
+            <div class="room-info">
+                <h3>Standard Room</h3>
+                <p>Екі адамға арналған жайлы және жарық бөлме.</p>
+
+                <div class="room-bottom">
+                    <span class="price">32 000 ₸ <small>/ түн</small></span>
+                    <button onclick="chooseRoom('Standard Room')">Таңдау</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="room">
+            <div class="room-image">ROOM 02</div>
+            <div class="room-info">
+                <h3>Comfort Room</h3>
+                <p>Үлкен төсек және қосымша демалыс аймағы бар.</p>
+
+                <div class="room-bottom">
+                    <span class="price">45 000 ₸ <small>/ түн</small></span>
+                    <button onclick="chooseRoom('Comfort Room')">Таңдау</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="room">
+            <div class="room-image">ROOM 03</div>
+            <div class="room-info">
+                <h3>Deluxe Suite</h3>
+                <p>Кең бөлме, жеке жұмыс және демалыс аймағы.</p>
+
+                <div class="room-bottom">
+                    <span class="price">68 000 ₸ <small>/ түн</small></span>
+                    <button onclick="chooseRoom('Deluxe Suite')">Таңдау</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section" id="booking">
+    <div class="section-title">
+        <h2>Бөлме брондау</h2>
+        <p>Келу және кету күндерін көрсетіңіз</p>
+    </div>
+
+    <div class="booking">
+        <form onsubmit="bookHotel(event)">
+
+            <div class="booking-grid">
+
+                <div class="field">
+                    <label>Аты-жөні</label>
+                    <input type="text" required placeholder="Аты-жөніңіз">
+                </div>
+
+                <div class="field">
+                    <label>Келу күні</label>
+                    <input type="date" required>
+                </div>
+
+                <div class="field">
+                    <label>Кету күні</label>
+                    <input type="date" required>
+                </div>
+
+                <div class="field">
+                    <label>Бөлме</label>
+                    <select id="roomSelect" required>
+                        <option value="">Бөлмені таңдаңыз</option>
+                        <option>Standard Room</option>
+                        <option>Comfort Room</option>
+                        <option>Deluxe Suite</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button type="submit">Бронь жасау</button>
+        </form>
+    </div>
+</section>
+
+<section class="section" id="services">
+    <div class="section-title">
+        <h2>Қонақүй қызметтері</h2>
+        <p>Қонақтарға арналған қосымша мүмкіндіктер</p>
+    </div>
+
+    <div class="services">
+
+        <div class="service">
+            <div class="service-number">01</div>
+            <h3>Wi-Fi</h3>
+            <p>Барлық бөлмелерде жоғары жылдамдықты интернет қолжетімді.</p>
+        </div>
+
+        <div class="service">
+            <div class="service-number">02</div>
+            <h3>Таңғы ас</h3>
+            <p>Қонақтарға таңғы ас арнайы залда ұсынылады.</p>
+        </div>
+
+        <div class="service">
+            <div class="service-number">03</div>
+            <h3>Паркинг</h3>
+            <p>Қонақтарға арналған қауіпсіз автокөлік тұрағы бар.</p>
+        </div>
+
+        <div class="service">
+            <div class="service-number">04</div>
+            <h3>24/7 Reception</h3>
+            <p>Қонақүй әкімшілігі тәулік бойы жұмыс істейді.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <div class="info-banner">
+        <div>
+            <h2>Демалысыңызды бүгін жоспарлаңыз</h2>
+            <p>Қажетті бөлмені таңдап, брондау формасын толтырыңыз.</p>
+        </div>
+
+        <a href="#booking" class="book-btn">Брондау</a>
+    </div>
+</section>
+
+<footer id="contact">
+
+    <div class="footer">
+
+        <div>
+            <h3>HAVEN.</h3>
+            <p>
+                Алматыдағы жайлы және заманауи қонақүй.
+                Қонақтарға сапалы қызмет көрсетуге бағытталған.
+            </p>
+        </div>
+
+        <div>
+            <h3>Қонақүй</h3>
+            <a href="#rooms">Бөлмелер</a><br>
+            <a href="#services">Қызметтер</a><br>
+            <a href="#booking">Брондау</a>
+        </div>
+
+        <div>
+            <h3>Ақпарат</h3>
+            <a href="#">Ережелер</a><br>
+            <a href="#">Төлем</a><br>
+            <a href="#">Қайтару</a>
+        </div>
+
+        <div>
+            <h3>Байланыс</h3>
+            <p>Алматы, Қазақстан</p>
+            <p>+7 700 222 33 44</p>
+            <p>booking@haven.kz</p>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 HAVEN. Барлық құқықтар қорғалған.
+    </div>
+
+</footer>
+
+<script>
+    function chooseRoom(room) {
+        document.getElementById("roomSelect").value = room;
+        document.getElementById("booking").scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+    function bookHotel(event) {
+        event.preventDefault();
+        alert("Брондау өтінімі қабылданды. Менеджер сізбен байланысады.");
+    }
+</script>
+
+</body>
+</html>
+```
